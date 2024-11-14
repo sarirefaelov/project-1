@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using project_1;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -6,37 +7,38 @@ namespace projecctclilnit.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class PatientController : ControllerBase
+    public class ClientcsClass : ControllerBase
     {
-        private static List<Patient> patient = new List<Patient> {
-            new Patient { Id = 1, Name = "david",Pone=0556761152,Email = "hi@email.com",Address="rabi akiva",City="bny brk"} ,
-            new Patient { Id = 2, Name = "david",Pone=0556761152,Email = "hi@email.com",Address="rabi akiva",City="bny brk"} ,
-            new Patient { Id = 3, Name = "david",Pone=0556761152,Email = "hi@email.com",Address="rabi akiva",City="bny brk" } };
+        public readonly DataContext _Patient;
+        public ClientcsClass(DataContext patient)
+        {
+            _Patient = patient;
+        }
         // GET: api/<patientController>
         [HttpGet]
-        public IEnumerable<Patient> Get()
+        public IEnumerable<ClientcsClass> Get()
         {
-            return patient;
+            return _Patient.patient;
         }
         // POST api/<patientController>
         [HttpPost]
-        public Patient Post([FromBody] Patient value)
+        public ClientcsClass Post([FromBody] ClientcsClass value)
         {
-            patient.Add(value);
+            _Patient.patient.Add(value);
             return value;
         }
 
         // PUT api/<patientController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Patient value)
+        public void Put(int id, [FromBody] ClientcsClass value)
         {
-            var index = patient.FindIndex(x => x.Id == id);
-            patient[index].Id = value.Id;
-            patient[index].Email = value.Email;
-            patient[index].Name = value.Name;
-            patient[index].Pone = value.Pone;
-            patient[index].City = value.City;
-            patient[index].Address = value.Address;
+            var index = _Patient.patient.FindIndex(x => x.Id == id);
+            _Patient.patient[index].Id = value.Id;
+            _Patient.patient[index].Email = value.Email;
+            _Patient.patient[index].Name = value.Name;
+            _Patient.patient[index].Pone = value.Pone;
+            _Patient.patient[index].City = value.City;
+            _Patient.patient[index].Address = value.Address;
 
         }
 
@@ -44,8 +46,8 @@ namespace projecctclilnit.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = patient.FindIndex(x => x.Id == id);
-            patient.Remove(patient[index]);
+            var index = _Patient.patient.FindIndex(x => x.Id == id);
+            _Patient.patient.Remove(_Patient.patient[index]);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using project_1;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -6,44 +7,46 @@ namespace projecctclilnit.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DoctorController : ControllerBase
+    public class DoctorClass : ControllerBase
     {
-        private static List<Doctor> doctor = new List<Doctor> {
-            new Doctor { Id = 1, Name = "david",Pone=0556761152,Email = "hi@email.com",Businesshours=7 } ,
-            new Doctor { Id = 2, Name = "david",Pone=0556761152,Email = "hi@email.com",Businesshours=7 } ,
-            new Doctor { Id = 3, Name = "david",Pone=0556761152,Email = "hi@email.com",Businesshours=7 } };
+        private readonly DataContext _doctor;
+
+        public DoctorClass(DataContext dataDoctor)
+        {
+            _doctor = dataDoctor;
+        }
         // GET: api/<ValuesController>
         [HttpGet]
-        public IEnumerable<Doctor> Get()
+        public IEnumerable<DoctorClass> Get()
         {
-            return doctor;
+            return _doctor.doctor;
         }
 
         [HttpPost]
-        public Doctor Post([FromBody] Doctor value)
+        public DoctorClass Post([FromBody] DoctorClass value)
         {
-            doctor.Add(value);
+            _doctor.doctor.Add(value);
             return value;
         }
 
         // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Doctor value)
+        public void Put(int id, [FromBody] DoctorClass value)
         {
-            var index = doctor.FindIndex(x => x.Id == id);
-            doctor[index].Id = value.Id;
-            doctor[index].Email = value.Email;
-            doctor[index].Name = value.Name;
-            doctor[index].Pone = value.Pone;
-            doctor[index].Businesshours = value.Businesshours;
+            var index = _doctor.doctor.FindIndex(x => x.Id == id);
+            _doctor.doctor[index].Id = value.Id;
+            _doctor.doctor[index].Email = value.Email;
+            _doctor.doctor[index].Name = value.Name;
+            _doctor.doctor[index].Pone = value.Pone;
+            _doctor.doctor[index].Businesshours = value.Businesshours;
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = doctor.FindIndex(x => x.Id == id);
-            doctor.Remove(doctor[index]);
+            var index = _doctor.doctor.FindIndex(x => x.Id == id);
+            _doctor.doctor.Remove(_doctor.doctor[index]);
         }
     }
 }
