@@ -7,10 +7,10 @@ namespace projecctclilnit.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientcsClass : ControllerBase
+    public class Clientcs : ControllerBase
     {
         public readonly DataContext _Patient;
-        public ClientcsClass(DataContext patient)
+        public Clientcs(DataContext patient)
         {
             _Patient = patient;
         }
@@ -18,13 +18,13 @@ namespace projecctclilnit.Controllers
         [HttpGet]
         public IEnumerable<ClientcsClass> Get()
         {
-            return _Patient.patient;
+            return _Patient.List_patient;
         }
         // POST api/<patientController>
         [HttpPost]
         public ClientcsClass Post([FromBody] ClientcsClass value)
         {
-            _Patient.patient.Add(value);
+            _Patient.List_patient.Add(value);
             return value;
         }
 
@@ -32,13 +32,13 @@ namespace projecctclilnit.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] ClientcsClass value)
         {
-            var index = _Patient.patient.FindIndex(x => x.Id == id);
-            _Patient.patient[index].Id = value.Id;
-            _Patient.patient[index].Email = value.Email;
-            _Patient.patient[index].Name = value.Name;
-            _Patient.patient[index].Pone = value.Pone;
-            _Patient.patient[index].City = value.City;
-            _Patient.patient[index].Address = value.Address;
+            var index = _Patient.List_patient.FindIndex(x => x.Id == id);
+            _Patient.List_patient[index].Id = value.Id;
+            _Patient.List_patient[index].Email = value.Email;
+            _Patient.List_patient[index].Name = value.Name;
+            _Patient.List_patient[index].Phone = value.Phone;
+            _Patient.List_patient[index].City = value.City;
+            _Patient.List_patient[index].Address = value.Address;
 
         }
 
@@ -46,8 +46,8 @@ namespace projecctclilnit.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = _Patient.patient.FindIndex(x => x.Id == id);
-            _Patient.patient.Remove(_Patient.patient[index]);
+            var index = _Patient.List_patient.FindIndex(x => x.Id == id);
+            _Patient.List_patient.Remove(_Patient.List_patient[index]);
         }
     }
 }

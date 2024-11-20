@@ -7,10 +7,10 @@ namespace projecctclilnit.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class TurnClass : ControllerBase
+    public class Turn : ControllerBase
     {
         public readonly DataContext _turn;
-        public TurnClass(DataContext turn)
+        public Turn(DataContext turn)
         {
             _turn = turn;
         }
@@ -32,20 +32,20 @@ namespace projecctclilnit.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] TurnClass value)
         {
-            var index = _turn.turn.FindIndex(x => x.Id == id);
+            var index = _turn.List_turn.FindIndex(x => x.Id == id);
             _turn.List_turn[index].Id = value.Id;
             _turn.List_turn[index].NameDoctor = value.NameDoctor;
             _turn.List_turn[index].Description = value.Description;
-            _turn.turn[index].IdClient = value.IdClient;
-            _turn.turn[index].IdDoctor = value.IdDoctor;
+            _turn.List_turn[index].IdClient = value.IdClient;
+            _turn.List_turn[index].IdDoctor = value.IdDoctor;
         }
 
         // DELETE api/<turnController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = _turn.turn.FindIndex(x => x.Id == id);
-            _turn.turn.Remove(_turn.turn[index]);
+            var index = _turn.List_turn.FindIndex(x => x.Id == id);
+            _turn.List_turn.Remove(_turn.List_turn[index]);
         }
     }
 }

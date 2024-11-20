@@ -7,11 +7,11 @@ namespace projecctclilnit.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DoctorClass : ControllerBase
+    public class Doctor : ControllerBase
     {
         private readonly DataContext _doctor;
 
-        public DoctorClass(DataContext dataDoctor)
+        public Doctor(DataContext dataDoctor)
         {
             _doctor = dataDoctor;
         }
@@ -19,13 +19,13 @@ namespace projecctclilnit.Controllers
         [HttpGet]
         public IEnumerable<DoctorClass> Get()
         {
-            return _doctor.doctor;
+            return _doctor.List_doctor;
         }
 
         [HttpPost]
         public DoctorClass Post([FromBody] DoctorClass value)
         {
-            _doctor.doctor.Add(value);
+            _doctor.List_doctor.Add(value);
             return value;
         }
 
@@ -33,20 +33,20 @@ namespace projecctclilnit.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] DoctorClass value)
         {
-            var index = _doctor.doctor.FindIndex(x => x.Id == id);
-            _doctor.doctor[index].Id = value.Id;
-            _doctor.doctor[index].Email = value.Email;
-            _doctor.doctor[index].Name = value.Name;
-            _doctor.doctor[index].Pone = value.Pone;
-            _doctor.doctor[index].Businesshours = value.Businesshours;
+            var index = _doctor.List_doctor.FindIndex(x => x.Id == id);
+            _doctor.List_doctor[index].Id = value.Id;
+            _doctor.List_doctor[index].Email = value.Email;
+            _doctor.List_doctor[index].Name = value.Name;
+            _doctor.List_doctor[index].Phone = value.Phone;
+            _doctor.List_doctor[index].Businesshours = value.Businesshours;
         }
 
         // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = _doctor.doctor.FindIndex(x => x.Id == id);
-            _doctor.doctor.Remove(_doctor.doctor[index]);
+            var index = _doctor.List_doctor.FindIndex(x => x.Id == id);
+            _doctor.List_doctor.Remove(_doctor.List_doctor[index]);
         }
     }
 }
