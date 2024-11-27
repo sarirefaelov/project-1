@@ -1,30 +1,37 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using project_1;
+using Clinic.Core.Services;
+using Clinic.Service;
+using Clinic.Core.Entities;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace projecctclilnit.Controllers
+namespace ClinicProject.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class Turn : ControllerBase
     {
-        public readonly DataContext _turn;
-        public Turn(DataContext turn)
+        private ITurnService _TurnService;
+        public Turn(ITurnService turnService)
         {
-            _turn = turn;
+            _TurnService = turnService;
         }
-        //GET: api/<turnController>
         [HttpGet]
         public IEnumerable<TurnClass> Get()
         {
-            return _turn.List_turn;
+            return _TurnService.GetTurn();
         }
+        // GET api/<Turn>/5
+        //[HttpGet("{id}")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
         // POST api/<turnController>
         [HttpPost]
         public TurnClass Post([FromBody] TurnClass value)
         {
-            _turn.List_turn.Add(value);
+            _TurnService.AddTurn(value);
             return value;
         }
 
@@ -32,20 +39,22 @@ namespace projecctclilnit.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] TurnClass value)
         {
-            var index = _turn.List_turn.FindIndex(x => x.Id == id);
-            _turn.List_turn[index].Id = value.Id;
-            _turn.List_turn[index].NameDoctor = value.NameDoctor;
-            _turn.List_turn[index].Description = value.Description;
-            _turn.List_turn[index].IdClient = value.IdClient;
-            _turn.List_turn[index].IdDoctor = value.IdDoctor;
+            var index = _TurnService.GetTurn().FindIndex(x => x.Id == id);
+            _TurnService.GetTurn()[index] = value;
+            //var index = _TurnService.GetTurn().FindIndex(x => x.Id == id);
+            //_TurnService.GetTurn()[index].Id = value.Id;
+            //_TurnService.GetTurn()[index].NameDoctor = value.NameDoctor;
+            //_TurnService.GetTurn()[index].Description = value.Description;
+            //_TurnService.GetTurn()[index].IdClient = value.IdClient;
+            //_TurnService.GetTurn()[index].IdDoctor = value.IdDoctor;
         }
 
         // DELETE api/<turnController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = _turn.List_turn.FindIndex(x => x.Id == id);
-            _turn.List_turn.Remove(_turn.List_turn[index]);
+            var index = _TurnService.GetTurn().FindIndex(x => x.Id == id);
+            _TurnService.GetTurn().Remove(_TurnService.GetTurn()[index]);
         }
     }
 }

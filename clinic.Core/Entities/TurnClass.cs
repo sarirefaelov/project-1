@@ -1,4 +1,10 @@
-﻿namespace project_1
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Clinic.Core.Entities
 {
     public class TurnClass
     {
@@ -12,6 +18,5 @@
         public DateTime Date;
         public DateTime Starttime { get; set; }
         public DateTime Endtime { get; set; }
-
     }
 }

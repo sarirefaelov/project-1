@@ -1,4 +1,11 @@
-﻿namespace project_1
+﻿
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Clinic.Core.Entities;
+namespace Clinic.Data
 {
     public class DataContext
     {
@@ -7,7 +14,8 @@
         public List<DoctorClass> List_doctor { get; set; }
         public List<TurnClass> List_turn { get; set; }
 
-        public DataContext() {
+        public DataContext()
+        {
             List_patient = new List<ClientcsClass> {
             new ClientcsClass { Id = 1, Name = "david",Phone=0556761152,Email = "hi@email.com",Address="rabi akiva",City="bny brk"} ,
             new ClientcsClass { Id = 2, Name = "david",Phone=0556761152,Email = "hi@email.com",Address="rabi akiva",City="bny brk"} ,
@@ -29,8 +37,8 @@
         Date = DateTime.Parse("2024-11-05T20:19:30.157Z"),
         Starttime = DateTime.Parse("2024-11-05T20:19:30.157Z"),
         Endtime = DateTime.Parse("2024-11-05T20:19:30.157Z")} };
-            }
+        }
 
     }
- }
-   
+}
+
