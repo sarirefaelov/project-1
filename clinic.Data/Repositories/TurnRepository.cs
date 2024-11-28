@@ -18,11 +18,11 @@ namespace Clinic.Data.Repositories
         }
         public List<TurnClass> GetTurn()
         {
-            return _context.List_turn;
+            return _context.List_turn.ToList();
         }
         public TurnClass Add(TurnClass turn)
         {
-            _context.List_turn.Add(turn);
+            _context.List_turn.ToList().Add(turn);
             return turn;
         }
     }

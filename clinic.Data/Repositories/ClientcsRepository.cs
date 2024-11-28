@@ -18,11 +18,11 @@ namespace Clinic.Data.Repositories
         }
         public List<ClientcsClass> GetPatient()
         {
-            return _context.List_patient;
+            return _context.List_patient.ToList();
         }
         public ClientcsClass Add(ClientcsClass patient)
         {
-            _context.List_patient.Add(patient);
+            _context.List_patient.ToList().Add(patient);
             return patient;
         }
     }
