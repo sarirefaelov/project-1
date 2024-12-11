@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Clinic.Core.Services;
 using Clinic.Service;
 using Clinic.Core.Entities;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
+using System.Collections.Generic;
+using System.Linq; 
 namespace ClinicProject.Api.Controllers
 {
     [Route("api/[controller]")]
@@ -12,21 +12,18 @@ namespace ClinicProject.Api.Controllers
     public class Doctor : ControllerBase
     {
         private IDoctorService _DoctorService;
+
         public Doctor(IDoctorService doctorService)
         {
             _DoctorService = doctorService;
         }
+
         [HttpGet]
-        public IEnumerable<DoctorClass> Get()
+        public ActionResult<DoctorClass> Get()
         {
-            return _DoctorService.GetDoctor();
+            return Ok(_DoctorService.GetDoctor());
         }
-        // GET api/<Doctor>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+
         [HttpPost]
         public DoctorClass Post([FromBody] DoctorClass value)
         {
@@ -34,26 +31,27 @@ namespace ClinicProject.Api.Controllers
             return value;
         }
 
-        // PUT api/<ValuesController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] DoctorClass value)
         {
-            var index = _DoctorService.GetDoctor().FindIndex(x => x.Id == id);
-            _DoctorService.GetDoctor()[index] = value;
-
-            //_DoctorService.GetDoctor()[index].Id = value.Id;
-            //_DoctorService.GetDoctor()[index].Email = value.Email;
-            //_DoctorService.GetDoctor()[index].Name = value.Name;
-            //_DoctorService.GetDoctor()[index].Phone = value.Phone;
-            //_DoctorService.GetDoctor()[index].Businesshours = value.Businesshours;
+            var doctorsList = _DoctorService.GetDoctor().ToList(); 
+            var index = doctorsList.FindIndex(x => x.Id == id);
+            if (index != -1) 
+            {
+                doctorsList[index] = value;
+            }
         }
 
-        // DELETE api/<ValuesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = _DoctorService.GetDoctor().FindIndex(x => x.Id == id);
-            _DoctorService.GetDoctor().RemoveAt(index);
+            var doctorsList = _DoctorService.GetDoctor().ToList(); // המרת IEnumerable לרשימה
+            var index = doctorsList.FindIndex(x => x.Id == id);
+            if (index != -1) // בדיקה אם נמצא אינדקס
+            {
+                doctorsList.RemoveAt(index);
+                // אם את רוצה להתעדכן בשירות, תצטרכי להוסיף שיטה למחיקת רופא מהשירות
+            }
         }
     }
 }

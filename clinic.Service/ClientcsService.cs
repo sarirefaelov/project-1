@@ -15,7 +15,7 @@ namespace Clinic.Service
         {
             _clientcsRepository = clientcsRepository;
         }
-        public List<ClientcsClass> GetPatient()
+        public IEnumerable<ClientcsClass> GetPatient()
         {
             return _clientcsRepository.GetPatient();
         }

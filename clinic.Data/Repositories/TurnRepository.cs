@@ -16,13 +16,14 @@ namespace Clinic.Data.Repositories
         {
             _context = context;
         }
-        public List<TurnClass> GetTurn()
+        public IEnumerable<TurnClass> GetTurn()
         {
-            return _context.List_turn.ToList();
+            return _context.List_turn;
         }
         public TurnClass Add(TurnClass turn)
         {
-            _context.List_turn.ToList().Add(turn);
+            _context.List_turn.Add(turn);
+            _context.SaveChanges();
             return turn;
         }
     }

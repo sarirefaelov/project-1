@@ -2,6 +2,8 @@
 using Clinic.Core.Services;
 using Clinic.Service;
 using Clinic.Core.Entities;
+using System.Linq;
+using System.Collections.Generic;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,9 +19,9 @@ namespace ClinicProject.Api.Controllers
             _TurnService = turnService;
         }
         [HttpGet]
-        public IEnumerable<TurnClass> Get()
+        public ActionResult<TurnClass> Get()
         {
-            return _TurnService.GetTurn();
+            return Ok(_TurnService.GetTurn());
         }
         // GET api/<Turn>/5
         //[HttpGet("{id}")]
@@ -39,22 +41,16 @@ namespace ClinicProject.Api.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] TurnClass value)
         {
-            var index = _TurnService.GetTurn().FindIndex(x => x.Id == id);
-            _TurnService.GetTurn()[index] = value;
-            //var index = _TurnService.GetTurn().FindIndex(x => x.Id == id);
-            //_TurnService.GetTurn()[index].Id = value.Id;
-            //_TurnService.GetTurn()[index].NameDoctor = value.NameDoctor;
-            //_TurnService.GetTurn()[index].Description = value.Description;
-            //_TurnService.GetTurn()[index].IdClient = value.IdClient;
-            //_TurnService.GetTurn()[index].IdDoctor = value.IdDoctor;
+            var index = _TurnService.GetTurn().ToList().FindIndex(x => x.Id == id);
+            _TurnService.GetTurn().ToList()[index] = value;
         }
 
         // DELETE api/<turnController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = _TurnService.GetTurn().FindIndex(x => x.Id == id);
-            _TurnService.GetTurn().Remove(_TurnService.GetTurn()[index]);
+            var index = _TurnService.GetTurn().ToList().FindIndex(x => x.Id == id);
+            _TurnService.GetTurn().ToList().Remove(_TurnService.GetTurn().ToList()[index]);
         }
     }
 }

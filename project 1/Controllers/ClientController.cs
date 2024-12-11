@@ -2,6 +2,9 @@
 using Clinic.Core.Entities;
 using Clinic.Core.Services;
 using Clinic.Service;
+using System.Linq;
+using System.Collections.Generic;
+
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace ClinicProject.Api.Controllers
@@ -16,16 +19,16 @@ namespace ClinicProject.Api.Controllers
             _ClientcsService = clientcsService;
         }
         [HttpGet]
-        public IEnumerable<ClientcsClass> Get()
+        public ActionResult<ClientcsClass> Get()
         {
-            return _ClientcsService.GetPatient();
+            return Ok(_ClientcsService.GetPatient());
         }
-        // GET api/<Client>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
+        //GET api/<Client>/5
+        [HttpGet("{id}")]
+        public string Get(int id)
+        {
+            return "value";
+        }
         // POST api/<patientController>
         [HttpPost]
         public ClientcsClass Post([FromBody] ClientcsClass value)
@@ -43,25 +46,16 @@ namespace ClinicProject.Api.Controllers
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] ClientcsClass value)
         {
-            var index = _ClientcsService.GetPatient().FindIndex(x => x.Id == id);
-            _ClientcsService.GetPatient()[index] = value;
-
-            //var index = _ClientcsService.GetPatient().FindIndex(x => x.Id == id);
-            //_ClientcsService.GetPatient()[index].Id = value.Id;
-            //_ClientcsService.GetPatient()[index].Email = value.Email;
-            //_ClientcsService.GetPatient()[index].Name = value.Name;
-            //_ClientcsService.GetPatient()[index].Phone = value.Phone;
-            //_ClientcsService.GetPatient()[index].City = value.City;
-            //_ClientcsService.GetPatient()[index].Address = value.Address;
-
+            var index = _ClientcsService.GetPatient().ToList().FindIndex(x => x.Id == id);
+            _ClientcsService.GetPatient().ToList()[index] = value;
         }
 
         // DELETE api/<patientController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            var index = _ClientcsService.GetPatient().FindIndex(x => x.Id == id);
-            _ClientcsService.GetPatient().RemoveAt(index);
+            var index = _ClientcsService.GetPatient().ToList().FindIndex(x => x.Id == id);
+            _ClientcsService.GetPatient().ToList().RemoveAt(index);
         }
     }
 }

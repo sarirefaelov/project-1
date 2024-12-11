@@ -10,7 +10,7 @@ namespace Clinic.Core.Services
     public interface ITurnService
     {
 
-        public List<TurnClass> GetTurn();
+        public IEnumerable<TurnClass> GetTurn();
         public TurnClass AddTurn(TurnClass turn);
 
     }

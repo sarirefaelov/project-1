@@ -9,7 +9,7 @@ namespace Clinic.Core.Repositories
 {
     public interface ITurnRepository
     {
-        public List<TurnClass> GetTurn();
+        public IEnumerable<TurnClass> GetTurn();
         public TurnClass Add(TurnClass turn);
 
     }

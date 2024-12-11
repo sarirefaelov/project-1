@@ -16,7 +16,7 @@ namespace Clinic.Service
         {
             _turnRepository = turnRepository;
         }
-        public List<TurnClass> GetTurn()
+        public IEnumerable<TurnClass> GetTurn()
         {
             return _turnRepository.GetTurn();
         }
