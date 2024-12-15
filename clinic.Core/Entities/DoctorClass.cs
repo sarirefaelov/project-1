@@ -13,5 +13,8 @@ namespace Clinic.Core.Entities
         public long Phone { get; set; }
         public string Email { get; set; }
         public int Businesshours { get; set; }
+        public List <ClientcsClass> Clientcs { get; set; }
+        public List<TurnClass> Turns { get; set; }
+
     }
 }

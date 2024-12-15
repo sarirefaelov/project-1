@@ -15,6 +15,7 @@ namespace Clinic.Core.Entities
         public string Email { get; set; }
         public string City { get; set; }
         public string Address { get; set; }
-
+        public List<DoctorClass> Doctors { get; set; }
+        public List<TurnClass> Turns { get; set; }
     }
 }

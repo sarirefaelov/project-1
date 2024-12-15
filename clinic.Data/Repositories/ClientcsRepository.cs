@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Clinic.Core.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Data.Repositories
 {
@@ -18,7 +19,7 @@ namespace Clinic.Data.Repositories
         }
         public IEnumerable<ClientcsClass> GetPatient()
         {
-            return _context.List_patient;
+            return _context.List_patient.Include(p => p.Doctors);
         }
         public ClientcsClass Add(ClientcsClass patient)
         {

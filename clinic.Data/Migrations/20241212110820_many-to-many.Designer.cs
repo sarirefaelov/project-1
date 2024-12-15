@@ -4,6 +4,7 @@ using Clinic.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20241212110820_many-to-many")]
+    partial class manytomany
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,15 +107,9 @@ namespace Clinic.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ClientId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("DoctorId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime>("Endtime")
                         .HasColumnType("datetime2");
@@ -136,10 +133,6 @@ namespace Clinic.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClientId");
-
-                    b.HasIndex("DoctorId");
-
                     b.ToTable("List_turn");
                 });
 
@@ -156,35 +149,6 @@ namespace Clinic.Data.Migrations
                         .HasForeignKey("DoctorsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Clinic.Core.Entities.TurnClass", b =>
-                {
-                    b.HasOne("Clinic.Core.Entities.ClientcsClass", "Client")
-                        .WithMany("Turns")
-                        .HasForeignKey("ClientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Clinic.Core.Entities.DoctorClass", "Doctor")
-                        .WithMany("Turns")
-                        .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Client");
-
-                    b.Navigation("Doctor");
-                });
-
-            modelBuilder.Entity("Clinic.Core.Entities.ClientcsClass", b =>
-                {
-                    b.Navigation("Turns");
-                });
-
-            modelBuilder.Entity("Clinic.Core.Entities.DoctorClass", b =>
-                {
-                    b.Navigation("Turns");
                 });
 #pragma warning restore 612, 618
         }

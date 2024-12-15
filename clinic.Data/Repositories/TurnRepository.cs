@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Clinic.Core.Entities;
 using Clinic.Core.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.Data.Repositories
 {
@@ -18,7 +19,7 @@ namespace Clinic.Data.Repositories
         }
         public IEnumerable<TurnClass> GetTurn()
         {
-            return _context.List_turn;
+            return _context.List_turn.Include(r=>r.Doctor);
         }
         public TurnClass Add(TurnClass turn)
         {
